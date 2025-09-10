@@ -147,7 +147,7 @@ export function LatestScanDisplay() {
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center w-full">
         {/* Left Side: The Prediction */}
-        <div className="flex flex-col items-center md:items-start text-center md:text-left">
+        <div className="flex flex-col items-center text-center md:text-left md:scale-130">
           <p className="text-sm font-semibold text-slate-400">Prediction Result</p>
           <p className="text-4xl lg:text-5xl font-extrabold text-emerald-600 my-2">{latestScan.herb_name}</p>
           <div className="my-4">

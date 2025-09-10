@@ -210,7 +210,7 @@ export default function HistoryPage() {
 								Showing {filteredHistory.length} of {history.length} scans
 							</div>
 
-							<div className='max-h-[70vh] rounded-lg border border-slate-800'>
+							<div className='overflow-auto max-h-[70vh] rounded-lg border border-slate-800 pr-2'>
 								<Table className='relative'>
 									<TableHeader className='sticky top-0 bg-slate-800 z-10'>
 										<TableRow className='border-slate-700 hover:bg-transparent'>
