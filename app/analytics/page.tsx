@@ -30,12 +30,17 @@ interface Scan {
 	adultaration_alert: boolean;
 }
 
+interface HerbChartData {
+  name: string;
+  'Adulteration Rate': number;
+}
+
 interface CustomTooltipProps {
   active?: boolean;
   payload?: Array<{
     name: string;
     value: number;
-    payload: any; // The original data item
+    payload: HerbChartData; // The original data item
   }>;
   label?: string;
 }
