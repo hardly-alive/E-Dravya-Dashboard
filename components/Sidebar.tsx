@@ -6,7 +6,6 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { LayoutDashboard, History, BarChart2, Menu, X , Sprout} from "lucide-react";
 import { useState, useEffect } from "react";
-import { DravyaIcon } from "@/components/DravyaIcon";
 
 const navItems = [
   { href: "/", label: "Dashboard", icon: LayoutDashboard },
