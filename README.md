@@ -1,108 +1,139 @@
-Dravyasense - AI-Powered Herbal Purity Analysis
-A modern, real-time dashboard for analyzing the purity of herbal samples using IoT sensor data and AI.
+# Dravyasense – AI-Powered Herbal Purity Analysis
 
-Dravyasense is a full-stack solution developed for the Smart India Hackathon (SIH) to combat the widespread issue of adulteration in herbal and medicinal products. By creating a unique "digital fingerprint" for authentic herbs, our system can instantly detect deviations and alert for potential contamination.
+*A real-time, AI-driven platform for detecting herbal adulteration using IoT sensor data.*
 
-📋 Table of Contents
-The Problem
+Dravyasense is a **full-stack solution** developed during the **Smart India Hackathon (SIH)** to tackle the rampant issue of adulteration in herbal and medicinal products. By generating a unique **digital fingerprint** for authentic herbs, the system can instantly detect deviations and flag potential contamination—providing rapid, accessible, and reliable quality assurance.
 
-Our Solution
+---
 
-✨ Key Features
+## 📋 Table of Contents
 
-🛠️ Tech Stack
+* [The Problem](#-the-problem)
+* [Our Solution](#-our-solution)
+* [Key Features](#-key-features)
+* [Tech Stack](#-tech-stack)
+* [Getting Started](#-getting-started)
+* [Deployment](#-deployment)
+* [Our Team](#-our-team)
 
-🚀 Getting Started
+---
 
-部署
+## 📍 The Problem
 
-Our Team
+The global herbal market is booming, but **quality control remains a critical challenge**. Adulteration—mixing genuine herbs with fillers, cheaper substitutes, or harmful chemicals—is widespread.
 
-📍 The Problem
-The global market for herbal products is booming, but it faces a critical challenge: a lack of quality control. Adulteration—mixing authentic herbs with cheaper substitutes, fillers, or even harmful substances—is rampant. This not only cheats consumers but also poses significant health risks. Traditional lab testing is slow, expensive, and not accessible at the point of collection.
+This causes two major issues:
 
-💡 Our Solution
-Dravyasense provides an instant, low-cost, and data-driven solution. An IoT device equipped with multiple sensors (pH, TDS, ORP, Temperature, RGB) collects data from an herbal sample. This data is sent to an AI model in the cloud, which compares it against the digital fingerprint of pure herbs stored in our database.
+1. **Consumer Trust**: People pay for authenticity but often receive compromised products.
+2. **Health Risks**: Contaminated herbs can lead to serious health consequences.
 
-The results are instantly visualized on a comprehensive web dashboard, providing clear insights into the purity, adulteration risk, and chemical profile of the sample.
+Traditional lab testing is **slow, costly, and inaccessible at the point of collection**, leaving the supply chain vulnerable.
 
-✨ Key Features
-Real-Time Analytics Dashboard: A central hub showing key stats like total tests, recent activity, and overall adulteration rates.
+---
 
-Latest Scan Spotlight: A dynamically updated "hero" component that showcases the most recent test result with a detailed sensor data breakdown.
+## 💡 Our Solution
 
-Comprehensive Scan History: A searchable and filterable history page with interactive, expandable rows to view detailed data for any past scan.
+Dravyasense introduces a **low-cost, real-time, and scalable approach** to purity testing:
 
-Data Visualization: An analytics page with interactive charts showing trends, adulteration rates by herb, and scan volume over time.
+* An **IoT device** equipped with multiple sensors (pH, TDS, ORP, Temperature, RGB) collects chemical and physical data from herbal samples.
+* Data is transmitted to an **AI model hosted on the cloud**, which compares it against the **digital fingerprint of pure herbs** in our database.
+* Results are instantly displayed on a **web dashboard** with insights into:
 
-Scalable Cloud Architecture: Built on a serverless AWS backend to handle any number of IoT devices and scans.
+  * Purity assessment
+  * Adulteration risk levels
+  * Detailed chemical profiles
 
-🛠️ Tech Stack
-Frontend
-Framework: Next.js (App Router)
+---
 
-Language: TypeScript
+## ✨ Key Features
 
-Styling: Tailwind CSS
+* **Real-Time Dashboard**: Live stats on total tests, adulteration rates, and recent activity.
+* **Latest Scan Spotlight**: A dynamic hero component showcasing the most recent test with sensor breakdowns.
+* **Scan History**: Searchable and filterable history with expandable rows for detailed past results.
+* **Data Visualization**: Interactive charts tracking trends, adulteration patterns, and scan volumes.
+* **Scalable Cloud Backend**: Serverless AWS architecture to handle unlimited devices and tests.
 
-UI Components: Shadcn/UI
+---
 
-Charting: Recharts
+## 🛠️ Tech Stack
 
-Animation: Framer Motion
+### **Frontend**
 
-Backend
-Platform: AWS Lambda (Serverless)
+* Framework: Next.js (App Router)
+* Language: TypeScript
+* Styling: Tailwind CSS
+* UI Library: Shadcn/UI
+* Charts: Recharts
+* Animations: Framer Motion
 
-API: AWS API Gateway
+### **Backend**
 
-Language: Node.js
+* Platform: AWS Lambda (Serverless)
+* API: AWS API Gateway
+* Runtime: Node.js
 
-Database
-Type: NoSQL
+### **Database**
 
-Service: AWS DynamoDB
+* Type: NoSQL
+* Service: AWS DynamoDB
 
-🚀 Getting Started
-To get a local copy up and running, follow these simple steps.
+---
 
-Prerequisites
-Node.js (v18 or later)
+## 🚀 Getting Started
 
-npm or yarn
+### **Prerequisites**
 
-Installation
-Clone the repo:
+* Node.js (v18 or later)
+* npm or yarn
 
-git clone [https://github.com/your-username/dravyasense-dashboard.git](https://github.com/your-username/dravyasense-dashboard.git)
+### **Installation**
 
-Install NPM packages:
+Clone the repository:
 
+```bash
+git clone https://github.com/your-username/dravyasense-dashboard.git
+cd dravyasense-dashboard
+```
+
+Install dependencies:
+
+```bash
 npm install
+```
 
-Set up Environment Variables:
-Create a file named .env.local in the root of the project and add your API Gateway URL:
+Set up environment variables in `.env.local`:
 
-API_BASE_URL=[https://your-api-gateway-url.amazonaws.com](https://your-api-gateway-url.amazonaws.com)
+```bash
+AWS_ACCESS_KEY_ID=
+AWS_SECRET_ACCESS_KEY=
+AWS_REGION=
+NEXT_PUBLIC_AWS_REGION=
+```
 
-Run the development server:
+Start the development server:
 
+```bash
 npm run dev
+```
 
-Open http://localhost:3000 with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the app.
 
-🌐 Deployment
-This application is automatically deployed on Vercel. Every push to the main branch triggers a new deployment, ensuring the live version is always up-to-date with the latest changes.
+---
 
-🧑‍💻 Our Team
-Jehkaran Singh - Team Lead / IoT
+## 🌐 Deployment
 
-Devansh Sharma - Full Stack / Cloud
+* Hosted on **Vercel** for instant and continuous deployment.
+* Every push to the `main` branch automatically triggers a live update.
 
-Indrajith Gopinathan - AI / ML
+---
 
-Tejas Sharma - Research / IoT
+## 🧑‍💻 Our Team
 
-Sambridhi Sinha - Presentation / Docs
+* **Jehkaran Singh** – Team Lead, IoT Hardware Integration
+* **Devansh Sharma** – Cloud & Full-Stack Development
+* **Indrajith Gopinathan** – AI/ML Engineer
+* **Tejas Sharma** – Sensor Calibration & Testing
+* **Sambridhi Sinha** – Documentation & Presentation
+* **Aditya Bisht** – Research & Support
 
-Aditya Bisht - Research / Docs
+---
