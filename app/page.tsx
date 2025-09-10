@@ -86,7 +86,9 @@ export default function DashboardPage() {
 
       } catch (err) {
         const errorMessage = err instanceof Error ? err.message : "An unknown error occurred";
-        setError("Failed to load dashboard data. Please try again later.");
+        console.error("Data fetching error:", errorMessage);
+        // FIX: Use the 'errorMessage' variable to provide a more specific error
+        setError(errorMessage);
       } finally {
         setLoading(false);
       }

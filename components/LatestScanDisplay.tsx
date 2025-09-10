@@ -137,7 +137,9 @@ export function LatestScanDisplay() {
     try {
       sensorDataObject = typeof latestScan.sensor_data === 'string' ? JSON.parse(latestScan.sensor_data) : latestScan.sensor_data;
     } catch (e) {
-      return <p className="text-center font-medium text-red-500">Error: Malformed sensor data.</p>;
+        // FIX: Log the parsing error and use the variable 'e'
+        console.error("Failed to parse sensor data:", e);
+        return <p className="text-center font-medium text-red-700">Error: Malformed sensor data.</p>;
     }
     
     const isAdulterated = latestScan.adultaration_alert;

@@ -1,15 +1,15 @@
-// /app/analytics/page.tsx
+// /app/analytics/page.tsx (Corrected)
 'use client';
 
 import { useState, useEffect, useMemo } from "react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend, LineChart, Line } from 'recharts';
-import { AlertCircle, BarChart3, Calendar, CheckCircle } from "lucide-react";
+import { AlertCircle, BarChart3 } from "lucide-react"; // Removed unused Calendar and CheckCircle
+import type { TooltipProps } from 'recharts'; // Import types for the tooltip
 
 const API_BASE_URL = 'https://2emj712evi.execute-api.ap-south-1.amazonaws.com';
 
-// Define the structure of a scan
 interface Scan {
   scan_id: string;
   timestamp: number;
@@ -17,13 +17,20 @@ interface Scan {
   adultaration_alert: boolean;
 }
 
-// Custom Tooltip for charts for better styling
-const CustomTooltip = ({ active, payload, label }: any) => {
+// FIX: Define a proper type for the tooltip payload to remove the 'any' error
+type ChartPayload = {
+    name: string;
+    value: number;
+};
+
+// FIX: Type the props for the CustomTooltip component
+const CustomTooltip = ({ active, payload, label }: TooltipProps<number, string>) => {
   if (active && payload && payload.length) {
+    const data = payload[0].payload as ChartPayload; // Cast payload to our defined type
     return (
       <div className="p-2 bg-slate-800/80 backdrop-blur-sm border border-slate-700 rounded-md text-sm text-white">
         <p className="font-bold">{label}</p>
-        <p className="text-slate-300">{`${payload[0].name}: ${payload[0].value.toFixed(1)}%`}</p>
+        <p className="text-slate-300">{`${payload[0].name}: ${payload[0].value?.toFixed(1)}%`}</p>
       </div>
     );
   }
