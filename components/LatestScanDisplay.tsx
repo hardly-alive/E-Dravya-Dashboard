@@ -155,7 +155,7 @@ export function LatestScanDisplay() {
             <p className="text-sm text-slate-400 mt-2 font-semibold">Confidence Score</p>
           </div>
           <div className={cn("inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-semibold", isAdulterated ? 'bg-red-500/10 text-red-400' : 'bg-green-500/10 text-green-400')}>
-            {isAdulterated ? <AlertTriangle size={16} /> : <CheckCircle size={16} />}
+            {isAdulterated ? <AlertTriangle size={16} className="animate-caret-blink"/> : <CheckCircle size={16} />}
             <span>{isAdulterated ? 'Adulteration Detected' : 'Quality Passed'}</span>
           </div>
         </div>
@@ -178,7 +178,7 @@ export function LatestScanDisplay() {
   
   // The main card styling remains the same
   return (
-    <Card className="bg-gradient-to-br from-slate-900 to-slate-800 border-slate-700 shadow-xl border-emerald-500/20">
+    <Card className="bg-gradient-to-br from-slate-900 to-slate-800 border-slate-700 shadow-xl">
       <CardHeader>
         <CardTitle className="text-slate-200">Latest Scan Analysis</CardTitle>
       </CardHeader>

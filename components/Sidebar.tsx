@@ -4,8 +4,9 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { LayoutDashboard, History, BarChart2, Thermometer, Menu, X } from "lucide-react";
+import { LayoutDashboard, History, BarChart2, Menu, X , Sprout} from "lucide-react";
 import { useState, useEffect } from "react";
+import { DravyaIcon } from "@/components/DravyaIcon";
 
 const navItems = [
   { href: "/", label: "Dashboard", icon: LayoutDashboard },
@@ -42,7 +43,7 @@ export default function Sidebar() {
     <>
       {/* Mobile menu button */}
       <button
-        className="fixed top-4 left-4 z-50 md:hidden bg-slate-800 p-2 rounded-md"
+        className={cn("fixed top-4 z-50 md:hidden bg-slate-800 p-2 rounded-md", isOpen ? 'left-68' : 'left-4')}
         onClick={toggleSidebar}
         aria-label="Toggle menu"
       >
@@ -64,7 +65,7 @@ export default function Sidebar() {
         isMobile ? "fixed left-0 top-0 w-64 transform " + (isOpen ? "translate-x-0" : "-translate-x-full") : ""
       )}>
         <div className="flex items-center gap-2 mb-10">
-          <Thermometer className="h-8 w-8 text-emerald-400" />
+          <Sprout className="h-8 w-8 text-emerald-400" />
           <h1 className="text-2xl font-bold text-white">Dravyasense</h1>
         </div>
         <nav className="flex flex-col gap-2">
