@@ -1,4 +1,4 @@
-// /app/page.tsx (Corrected to use the /stats endpoint)
+// /app/page.tsx (Fully Responsive Version)
 'use client'
 
 import Link from "next/link";
@@ -35,7 +35,7 @@ interface Stats {
   adulterationRate: number;
 }
 
-// AnimatedNumber component remains the same
+// AnimatedNumber component with responsive text size
 function AnimatedNumber({ to, suffix = "" }: { to: number, suffix?: string }) {
     const ref = useRef<HTMLDivElement>(null);
     useEffect(() => {
@@ -49,25 +49,25 @@ function AnimatedNumber({ to, suffix = "" }: { to: number, suffix?: string }) {
             return () => controls.stop();
         }
     }, [to, suffix]);
-    return <div ref={ref} className="text-3xl font-bold text-white">0</div>;
+    // RESPONSIVE CHANGE: Font size scales up on larger screens
+    return <div ref={ref} className="text-2xl sm:text-3xl font-bold text-white">0</div>;
 }
 
 export default function DashboardPage() {
   const [referenceHerbs, setReferenceHerbs] = useState<HerbStandard[]>([]);
-  const [scanHistory, setScanHistory] = useState<ScanHistory[]>([]); // For the recent scans list
-  const [stats, setStats] = useState<Stats | null>(null); // For the KPI cards
+  const [scanHistory, setScanHistory] = useState<ScanHistory[]>([]);
+  const [stats, setStats] = useState<Stats | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    // Fetching logic remains the same
     const fetchData = async () => {
       try {
         setLoading(true);
         setError(null);
-
-        // Fetch all data in parallel
         const [statsRes, standardsRes, historyRes] = await Promise.all([
-          fetch(`${API_BASE_URL}/stats`), // <-- NEW API CALL
+          fetch(`${API_BASE_URL}/stats`),
           fetch(`${API_BASE_URL}/standards`),
           fetch(`${API_BASE_URL}/history?limit=5`),
         ]);
@@ -86,8 +86,6 @@ export default function DashboardPage() {
 
       } catch (err) {
         const errorMessage = err instanceof Error ? err.message : "An unknown error occurred";
-        console.error("Data fetching error:", errorMessage);
-        // FIX: Use the 'errorMessage' variable to provide a more specific error
         setError(errorMessage);
       } finally {
         setLoading(false);
@@ -98,70 +96,71 @@ export default function DashboardPage() {
   }, []);
 
   return (
-    <div className="space-y-8 animate-in fade-in-50 duration-500">
-      <h1 className="text-3xl font-bold tracking-tight text-white">Dashboard Overview</h1>
+    <div className="space-y-6 md:space-y-8 animate-in fade-in-50 duration-500">
+      {/* RESPONSIVE CHANGE: Font size scales up on larger screens */}
+      <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-white">Dashboard Overview</h1>
+      
       {error && <div className="bg-red-500/10 border border-red-500/20 text-red-500 p-4 rounded-md">{error}</div>}
 
-      {/* Stats Overview */}
+      {/* Stats Overview Grid - Already responsive with `md:grid-cols-3` */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <Card className="bg-slate-900/50 border-slate-800 hover:border-blue-500/50 transition-colors duration-300">
-          <CardHeader className="flex flex-row items-center justify-between pb-2"><CardTitle className="text-sm font-medium text-slate-400">Total Tests</CardTitle><ClipboardList className="h-5 w-5 text-blue-400" /></CardHeader>
-          <CardContent>{loading || !stats ? <Skeleton className="h-8 w-16 bg-slate-700" /> : <AnimatedNumber to={stats.totalTests} />}</CardContent>
+            <CardHeader className="flex flex-row items-center justify-between pb-2"><CardTitle className="text-sm font-medium text-slate-400">Total Tests</CardTitle><ClipboardList className="h-5 w-5 text-blue-400" /></CardHeader>
+            <CardContent>{loading || !stats ? <Skeleton className="h-8 w-16 bg-slate-700" /> : <AnimatedNumber to={stats.totalTests} />}</CardContent>
         </Card>
         <Card className="bg-slate-900/50 border-slate-800 hover:border-yellow-500/50 transition-colors duration-300">
-          <CardHeader className="flex flex-row items-center justify-between pb-2"><CardTitle className="text-sm font-medium text-slate-400">Recent Tests (24h)</CardTitle><Timer className="h-5 w-5 text-yellow-400" /></CardHeader>
-          <CardContent>{loading || !stats ? <Skeleton className="h-8 w-16 bg-slate-700" /> : <AnimatedNumber to={stats.recentTests} />}</CardContent>
+            <CardHeader className="flex flex-row items-center justify-between pb-2"><CardTitle className="text-sm font-medium text-slate-400">Recent Tests (24h)</CardTitle><Timer className="h-5 w-5 text-yellow-400" /></CardHeader>
+            <CardContent>{loading || !stats ? <Skeleton className="h-8 w-16 bg-slate-700" /> : <AnimatedNumber to={stats.recentTests} />}</CardContent>
         </Card>
         <Card className="bg-slate-900/50 border-slate-800 hover:border-red-500/50 transition-colors duration-300">
-          <CardHeader className="flex flex-row items-center justify-between pb-2"><CardTitle className="text-sm font-medium text-slate-400">Adulteration Rate</CardTitle><ShieldAlert className="h-5 w-5 text-red-400" /></CardHeader>
-          <CardContent>{loading || !stats ? <Skeleton className="h-8 w-16 bg-slate-700" /> : <AnimatedNumber to={stats.adulterationRate} suffix="%" />}</CardContent>
+            <CardHeader className="flex flex-row items-center justify-between pb-2"><CardTitle className="text-sm font-medium text-slate-400">Adulteration Rate</CardTitle><ShieldAlert className="h-5 w-5 text-red-400" /></CardHeader>
+            <CardContent>{loading || !stats ? <Skeleton className="h-8 w-16 bg-slate-700" /> : <AnimatedNumber to={stats.adulterationRate} suffix="%" />}</CardContent>
         </Card>
       </div>
 
       <LatestScanDisplay />
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-2">
-          {/* Reference Herb Data Table */}
+      {/* RESPONSIVE CHANGE: Grid now breaks at `md` instead of `lg` for better tablet view */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="md:col-span-2">
           <Card className="bg-slate-900 border-slate-800">
             <CardHeader>
               <CardTitle className="text-slate-200">Reference Herb Data</CardTitle>
             </CardHeader>
             <CardContent>
               {loading ? (
-                <div className="space-y-2">
-                    <Skeleton className="h-10 w-full bg-slate-800" />
-                    <Skeleton className="h-10 w-full bg-slate-800" />
-                    <Skeleton className="h-10 w-full bg-slate-800" />
-                </div>
+                <Skeleton className="h-40 w-full bg-slate-800" />
               ) : (
-                <Table>
-                  <TableHeader>
-                    <TableRow className="border-slate-800 hover:bg-transparent">
-                      <TableHead className="text-slate-400 uppercase tracking-wider">Herb Name</TableHead>
-                      <TableHead className="text-slate-400 uppercase tracking-wider text-right">pH</TableHead>
-                      <TableHead className="text-slate-400 uppercase tracking-wider text-right">TDS (ppm)</TableHead>
-                      <TableHead className="text-slate-400 uppercase tracking-wider text-right">ORP (mV)</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {referenceHerbs.map((herb) => (
-                      <TableRow key={herb.herb_name} className="border-slate-800 even:bg-slate-800/50 hover:bg-slate-700/50">
-                        <TableCell className="font-medium text-white">{herb.herb_name}</TableCell>
-                        <TableCell className="text-right text-slate-300">{herb.avg_pH.toFixed(1)}</TableCell>
-                        <TableCell className="text-right text-slate-300">{herb.avg_tds}</TableCell>
-                        <TableCell className="text-right text-slate-300">{herb.avg_orp}</TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
+                // RESPONSIVE CHANGE: Added overflow-x-auto as a safety measure and hidden columns on small screens
+                <div className="overflow-x-auto">
+                    <Table>
+                        <TableHeader>
+                            <TableRow className="border-slate-800 hover:bg-transparent">
+                            <TableHead className="text-slate-400 uppercase tracking-wider">Herb</TableHead>
+                            <TableHead className="text-slate-400 uppercase tracking-wider text-right">pH</TableHead>
+                            <TableHead className="hidden sm:table-cell text-slate-400 uppercase tracking-wider text-right">TDS</TableHead>
+                            <TableHead className="hidden md:table-cell text-slate-400 uppercase tracking-wider text-right">ORP</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            {referenceHerbs.map((herb) => (
+                            <TableRow key={herb.herb_name} className="border-slate-800 even:bg-slate-800/50 hover:bg-slate-700/50">
+                                <TableCell className="font-medium text-white">{herb.herb_name}</TableCell>
+                                <TableCell className="text-right text-slate-300">{herb.avg_pH.toFixed(1)}</TableCell>
+                                <TableCell className="hidden sm:table-cell text-right text-slate-300">{herb.avg_tds}</TableCell>
+                                <TableCell className="hidden md:table-cell text-right text-slate-300">{herb.avg_orp}</TableCell>
+                            </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </div>
               )}
             </CardContent>
           </Card>
         </div>
 
-        {/* Recent Scan History */}
-        <div className="lg:col-span-1">
+        <div className="md:col-span-1">
+          {/* This component is already mobile-friendly */}
           <Card className="bg-slate-900 border-slate-800">
             <CardHeader>
               <CardTitle className="text-slate-200">Recent Scans</CardTitle>
