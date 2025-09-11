@@ -15,7 +15,7 @@ interface LatestScan {
   timestamp: number;
   herb_name: string;
   confidence: number;
-  adultaration_alert: boolean;
+  adulteration_alert: boolean;
   sensor_data: string | { [key: string]: number };
 }
 
@@ -142,7 +142,7 @@ export function LatestScanDisplay() {
         return <p className="text-center font-medium text-red-700">Error: Malformed sensor data.</p>;
     }
     
-    const isAdulterated = latestScan.adultaration_alert;
+    const isAdulterated = latestScan.adulteration_alert;
 
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center w-full">
